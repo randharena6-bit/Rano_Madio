@@ -225,3 +225,66 @@ Type	Exemples (Madagascar)
 Signalements	Panne pompe Anosizato, Inondation Ambohimanarina, Déchets Andoharanofotsy, Besoin eau Ankadivato
 Ressources	Puits Association Soa (120 bidons, 14-17h), Eau commerçant Tsaralalana (20 bidons), Camion mairie
 Offres aide	Transport volontaire Ambohimanarina 15-18h, Bénévoles nettoyage Association Fanilo, Bidons famille Anosizato
+
+
+IA dans RanoMadio Map : Avis & Exemples Concrets
+Mon avis : OUI, mais ciblé "gain de temps réel"
+L'IA ne doit pas être un gadget. Elle doit réduire la friction pour les utilisateurs peu tech-savvy et accélérer la modération. Priorité : fonctionnalités "invisibles" qui améliorent l'existant.
+5 Intégrations IA Hautement Utiles (MVP compatible)
+1. Catégorisation Auto du Signalement (Voice du quartier)
+Problème : L'utilisateur hésite entre "panne eau", "manque eau", "point eau en panne".
+Solution : Classifieur léger (TF.js ou API) sur description + type_choisi → suggère la bonne catégorie + urgence.
+// Exemple sortie
+{ category: "water_outage", urgency: "high", confidence: 0.92, suggested_tags: ["pompe", "ecole", "anosizato"] }
+Gain : Moins d'erreurs, dashboard plus fiable.
+2. Déduplication Intelligente (Avant envoi)
+Problème : 5 signalements pour la même panne → bruit carte + travail modérateur.
+Solution : Embedding (sentence-transformers) sur description + proximité géographique (< 200m) + fenêtre temps (< 6h) → alerte "Signalement similaire existe, voulez-vous confirmer ?".
+Gain : Carte propre, index de fiabilité auto-alimenté.
+3. Extraction Entités depuis Audio/Description Libre (Inclusif)
+Problème : Utilisateurs non-littéraires ou pressés → audio ou phrase unique.
+Solution : Whisper (audio→texte) + NER léger (spaCy/Transformers) → pré-remplit le formulaire :
+Audio: "Le puits près de l'école Anosizato ne marche plus depuis ce matin, on a plus d'eau pour 50 familles"
+→ { location: "Ecole Anosizato", type: "water_outage", urgency: "high", nb_people: 50, duration: "since this morning" }
+Gain : Accessibilité réelle (malentendants, analphabètes, urgence).
+4. Matching Sémantique Besoin ↔ Ressource (Au-delà règles simples)
+Problème : Règles "même catégorie" ratent "bidons" ↔ "besoin eau" ou "camion" ↔ "transport malades".
+Solution : Embedding sur besoin.description + ressource.description → score sémantique + règles géo → explicabilité : "Cette association a des bidons (compatibilité 0.87) et est à 800m".
+Gain : Découvre des matchs non-évidents.
+5. Modération Assistée / Score Fiabilité Auto
+Problème : Modérateurs submergés, fiabilité subjective.
+Solution : Signaux IA → score 0-100 :
+- Photo : cohérence image/description (CLIP), pas de duplicata web
+- Texte : cohérence interne, pas de spam pattern
+- Historique utilisateur : % confirmations exactes, délai réaction
+- Consensus communautaire : nb confirmations / temps
+Sortie : Badge "Vérifié IA + Communauté" ou "À vérifier prioritaire".
+Gain : Modérateur focus sur cas ambigus.
+Stack IA Légère (Hackathon)
+Besoin	Outil
+Embeddings texte	sentence-transformers/all-MiniLM-L6-v2 (ONNX/TF.js)
+Audio → Texte	Whisper.cpp (WASM) ou OpenAI API
+Classification	TF.js / ONNX Runtime Web
+NER	spaCy fr_core_news_sm (backend) ou dslim/bert-base-NER (ONNX)
+Architecture recommandée : Hybride
+- Client (TF.js/ONNX) : Catégorisation, déduplication pré-check, extraction formulaire → instantané, offline-first
+- Backend (Python/FastAPI + transformers) : Matching sémantique, modération, embeddings lourds → asynchrone, plus puissant
+Ce qu'il FAUT ÉVITER (Pièges Hackathon)
+❌ À éviter	Pourquoi
+Chatbot "Posez votre question"	Utilisateurs veulent agir, pas discuter
+Génération rapport auto	Pas de valeur si pas lu, risque hallucination
+Prédiction pannes "IA magique"	Pas assez de data historique, faux sentiment contrôle
+Traduction FR↔MG temps réel	Complexité > valeur pour MVP (mieux : UI bilingue statique)
+Fine-tuning modèle	Temps mort, data insuffisante
+Plan d'Intégration Progressif
+Phase	Feature IA
+MVP+1 (post-hackathon)	Catégorisation auto + Déduplication
+V1	Extraction audio→formulaire + Matching sémantique
+V2	Modération assistée + Score fiabilité
+Exemple Concret : Flux "Voix du Quartier" Augmenté
+1. Utilisateur ouvre formulaire
+2. [IA Client] Écoute audio OU analyse texte libre → pré-remplit 5/7 champs
+3. [IA Client] Vérifie doublons proximités → "Signalement similaire à 150m il y a 2h, confirmer ?"
+4. Utilisateur valide/envoie (30 sec vs 2 min)
+5. [IA Backend] Calcule embedding besoin → match ressources sémantiques → propose 3 matches avec explication
+6. [IA Backend] Score fiabilité signalement → si < 40 → file prioritaire modérateur
