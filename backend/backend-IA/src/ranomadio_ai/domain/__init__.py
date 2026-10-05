@@ -1,0 +1,66 @@
+"""Regles metier et taxonomie du domaine RanoMadio."""
+
+from ranomadio_ai.domain.entities import (
+    Candidate,
+    GeoPoint,
+    HelpOfferInput,
+    MatchResult,
+    ReportInput,
+    ResourceInput,
+    ScoredCandidate,
+    TrustSignals,
+    UserContext,
+)
+from ranomadio_ai.domain.enums import (
+    AvailabilityStatus,
+    Category,
+    HelpOfferStatus,
+    MatchStatus,
+    MatchType,
+    ReactionType,
+    ReportStatus,
+    ReportType,
+    TrustLevel,
+    Urgency,
+    UserRole,
+    Visibility,
+)
+from ranomadio_ai.domain.rules import (
+    confidence_to_score,
+    normalize_text,
+    score_trust,
+    suggest_category,
+    suggest_urgency,
+)
+from ranomadio_ai.domain.taxonomy import CATEGORY_LABELS, DEFAULT_ZONES
+
+__all__ = [
+    "AvailabilityStatus",
+    "CATEGORY_LABELS",
+    "Candidate",
+    "Category",
+    "DEFAULT_ZONES",
+    "GeoPoint",
+    "HelpOfferInput",
+    "HelpOfferStatus",
+    "MatchResult",
+    "MatchStatus",
+    "MatchType",
+    "ReactionType",
+    "ReportInput",
+    "ReportStatus",
+    "ReportType",
+    "ResourceInput",
+    "ScoredCandidate",
+    "TrustLevel",
+    "TrustSignals",
+    "Urgency",
+    "UserContext",
+    "UserRole",
+    "Visibility",
+    "confidence_to_score",
+    "normalize_text",
+    "score_trust",
+    "suggest_category",
+    "suggest_urgency",
+]

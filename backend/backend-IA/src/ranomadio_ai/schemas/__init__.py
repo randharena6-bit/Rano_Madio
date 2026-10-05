@@ -1,0 +1,41 @@
+"""Contrats Pydantic exposes par l'API."""
+
+from ranomadio_ai.schemas.api import (
+    ClassifyRequest,
+    ClassifyResponse,
+    DedupRequest,
+    DedupResponse,
+    EmbeddingRequest,
+    EmbeddingResponse,
+    ExtractRequest,
+    ExtractResponse,
+    HealthResponse,
+    MatchRequest,
+    MatchResponse,
+    ModerationRequest,
+    ModerationResponse,
+    PipelineRequest,
+    PipelineResponse,
+    SimilarityRequest,
+    SimilarityResponse,
+)
+
+__all__ = [
+    "ClassifyRequest",
+    "ClassifyResponse",
+    "DedupRequest",
+    "DedupResponse",
+    "EmbeddingRequest",
+    "EmbeddingResponse",
+    "ExtractRequest",
+    "ExtractResponse",
+    "HealthResponse",
+    "MatchRequest",
+    "MatchResponse",
+    "ModerationRequest",
+    "ModerationResponse",
+    "PipelineRequest",
+    "PipelineResponse",
+    "SimilarityRequest",
+    "SimilarityResponse",
+]
