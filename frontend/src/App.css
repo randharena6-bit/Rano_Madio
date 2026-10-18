@@ -5,3 +5,8 @@
 .page h1 {
   margin-top: 0;
 }
+
+.page-hint {
+  color: var(--text);
+  font-size: 15px;
+}
