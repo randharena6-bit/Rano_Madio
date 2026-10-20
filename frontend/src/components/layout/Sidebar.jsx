@@ -7,7 +7,6 @@ import {
   Map,
   MapPin,
   Plus,
-  Wifi,
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
@@ -45,60 +44,61 @@ export default function Sidebar({ open = false, onClose }) {
     <>
       <nav className={`sidebar${open ? ' open' : ''}`} aria-label="Navigation principale">
         <div
-          className="shrink-0 px-6 py-6"
-          style={{ background: 'var(--brand)', minHeight: 155 }}
+          className="shrink-0 px-5 py-4"
+          style={{ background: 'var(--brand-strong)' }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-xl bg-white">
-              <Droplets size={26} style={{ color: 'var(--brand)' }} />
+            <div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl bg-white">
+              <Droplets size={22} style={{ color: 'var(--brand-strong)' }} />
             </div>
             <div className="min-w-0">
-              <div className="text-[20px] font-extrabold leading-tight text-white">
+              <div className="text-[18px] font-bold leading-tight text-white">
                 RanoMadio Map
               </div>
-              <div className="text-[14px] font-semibold text-white">
+              <div className="text-[12px] font-medium text-white">
                 Signaler. Confirmer. Agir.
               </div>
             </div>
           </div>
 
           <div
-            className="mt-3 flex h-10 items-center gap-2 rounded-[10px] px-3"
+            className="mt-3 flex h-9 items-center gap-2 rounded-[8px] px-2.5"
             style={{
-              background: 'rgba(255, 255, 255, 0.15)',
+              background: 'rgba(0, 0, 0, 0.15)',
               border: '1px solid rgba(255, 255, 255, 0.25)',
             }}
           >
-            <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--success)]" />
-            <span className="truncate text-[14px] font-semibold text-white">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
+            <span className="truncate text-[12px] font-medium text-white">
               Pilote : Anosizato &amp; Ankasina
             </span>
             <span
-              className="ml-auto shrink-0 rounded-md bg-white px-2 py-0.5 text-[12px] font-bold"
-              style={{ color: 'var(--brand)' }}
+              className="ml-auto shrink-0 rounded-md bg-white px-1.5 py-0.5 text-[11px] font-bold"
+              style={{ color: 'var(--brand-strong)' }}
             >
               CUA
             </span>
           </div>
         </div>
 
-        <div className="shrink-0 px-5 py-5">
+        <div className="shrink-0 px-4 py-4">
           <NavLink
             to="/signaler"
             onClick={onClose}
-            className="flex h-[62px] items-center justify-center gap-3 rounded-2xl bg-[var(--brand)] transition-colors hover:bg-[var(--brand-hover)]"
-            style={{ boxShadow: '0 8px 20px rgba(24, 119, 242, 0.30)' }}
+            className="sidebar-report-cta group relative flex h-[54px] items-center justify-center gap-2.5 rounded-xl bg-[var(--brand-strong)] hover:bg-[var(--brand-hover)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/20">
-              <Plus size={18} className="text-white" />
+            <span className="sidebar-report-icon flex h-7 w-7 items-center justify-center rounded-md bg-white/20">
+              <Plus size={18} className="sidebar-report-plus text-white" />
             </span>
-            <span className="text-[18px] font-bold text-white">Signaler un problème</span>
+            <span className="text-[15px] font-semibold text-white">
+              Signaler un problème
+            </span>
           </NavLink>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto pb-4">
+        <div className="sidebar-menu min-h-0 flex-1 overflow-y-auto pb-3">
           <div
-            className="px-[30px] pb-2 text-[13px] font-bold uppercase"
+            className="px-5 pb-2 text-[11px] font-bold uppercase"
             style={{ color: 'var(--text-label)', letterSpacing: '0.06em' }}
           >
             Menu
@@ -112,8 +112,8 @@ export default function Sidebar({ open = false, onClose }) {
               onClick={onClose}
               className={({ isActive }) =>
                 isActive
-                  ? 'mx-[15px] flex h-[68px] items-center gap-4 rounded-[14px] border px-[15px]'
-                  : 'mx-0 flex h-[68px] items-center gap-4 border px-[30px]'
+                  ? 'mx-2.5 flex h-[58px] items-center gap-3 rounded-[10px] border px-3 active:scale-[0.98]'
+                  : 'mx-0 flex h-[58px] items-center gap-3 border px-5 hover:bg-[var(--surface-alt)] active:scale-[0.98]'
               }
               style={({ isActive }) =>
                 isActive
@@ -127,33 +127,33 @@ export default function Sidebar({ open = false, onClose }) {
               {({ isActive }) => (
                 <>
                   <Icon
-                    size={24}
+                    size={20}
                     className="shrink-0"
                     style={{ color: isActive ? 'var(--brand)' : '#64748B' }}
                   />
                   <span className="min-w-0 flex-1">
                     <span
-                      className={`block truncate text-[18px] leading-snug ${
+                      className={`block truncate text-[15px] leading-snug ${
                         isActive ? 'font-bold' : 'font-medium'
                       }`}
-                      style={{ color: isActive ? 'var(--brand)' : 'var(--text-title)' }}
+                      style={{ color: isActive ? 'var(--brand-text)' : 'var(--text-title)' }}
                     >
                       {title}
                     </span>
                     <span
-                      className="block truncate text-[12px]"
-                      style={{ color: 'var(--text-muted)' }}
+                      className="block truncate text-[11px]"
+                      style={{ color: isActive ? 'var(--text-title)' : 'var(--text-muted)' }}
                     >
                       {sub}
                     </span>
                   </span>
                   {badge && (
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[13px] font-bold text-white bg-[var(--danger)]">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white bg-[var(--danger)]">
                       {badge}
                     </span>
                   )}
                   {isActive && (
-                    <ChevronRight size={20} className="shrink-0" style={{ color: 'var(--brand)' }} />
+                    <ChevronRight size={16} className="shrink-0" style={{ color: 'var(--brand)' }} />
                   )}
                 </>
               )}
@@ -161,11 +161,11 @@ export default function Sidebar({ open = false, onClose }) {
           ))}
 
           <div
-            className="mx-[15px] mt-4 rounded-2xl border p-5"
+            className="mx-2.5 mt-3 rounded-xl border p-4"
             style={{ borderColor: 'var(--border)', background: 'var(--surface-alt)' }}
           >
             <div
-              className="mb-3 flex items-center gap-2 text-[13px] font-bold uppercase"
+              className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase"
               style={{ color: 'var(--text-title)' }}
             >
               <MapPin size={16} style={{ color: 'var(--brand)' }} />
@@ -174,7 +174,7 @@ export default function Sidebar({ open = false, onClose }) {
             <select
               aria-label="Filtre fokontany"
               defaultValue="all"
-              className="h-11 w-full cursor-pointer rounded-full border bg-white px-4 text-[15px] font-bold outline-none focus:border-[var(--brand)] focus:ring-4 focus:ring-[rgba(24,119,242,0.3)]"
+              className="h-11 w-full cursor-pointer rounded-lg border bg-white px-3 text-[13px] font-semibold outline-none focus:border-[var(--brand)] focus:ring-4 focus:ring-[rgba(24,119,242,0.3)]"
               style={{ borderColor: 'var(--border)', color: 'var(--text-title)' }}
             >
               <option value="all">Tous les fokontany</option>
@@ -186,31 +186,10 @@ export default function Sidebar({ open = false, onClose }) {
         </div>
 
         <div
-          className="shrink-0 border-t px-5 py-4"
+          className="shrink-0 border-t px-4 py-3"
           style={{ borderColor: 'var(--border)', background: 'var(--surface-alt)' }}
         >
-          <div className="flex items-center justify-between gap-3">
-            <span
-              className="flex items-center gap-2 text-[13px] font-semibold"
-              style={{ color: 'var(--text-title)' }}
-            >
-              <Wifi size={16} style={{ color: 'var(--success)' }} />
-              Connecté (Mode léger)
-            </span>
-            <span
-              className="shrink-0 rounded-lg border bg-white px-2 py-1 text-[13px] font-bold"
-              style={{ borderColor: 'var(--border)', color: 'var(--brand)' }}
-            >
-              v1.2 MVP
-            </span>
-          </div>
-          <p
-            className="mt-2 text-[12px]"
-            style={{ color: '#64748B', lineHeight: 1.3 }}
-          >
-            Consultation 100% citoyenne sans création de compte requise. Antananarivo,
-            Madagascar.
-          </p>
+          {/* Bas de la sidebar supprimé selon demande */}
         </div>
       </nav>
       {open && <div className="nav-backdrop" onClick={onClose} aria-hidden="true" />}
